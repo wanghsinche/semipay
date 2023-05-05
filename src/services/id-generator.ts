@@ -20,9 +20,9 @@ export async function generateCheckout() {
     }
     const now = Date.now();
     const lockedIds = await kv.zrange<string[]>(ID_LIST_KEY, now, now + oneYear, {
-        rev: true,
         byScore: true
     });
+    console.log(lockedIds,'lockedids')
     const freeId = idPool.find(id => !lockedIds.includes(id));
     if (!freeId) return null;
     await kv.zadd(ID_LIST_KEY, { score: now + duration, member: freeId });
