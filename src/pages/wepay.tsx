@@ -1,4 +1,5 @@
 import { IConfig, generateCheckout } from "@/services/id-generator";
+import Image from "next/image";
 
 export default function Page({ checkout }:{ checkout: IConfig}) {
   // Render data...
@@ -9,6 +10,7 @@ export default function Page({ checkout }:{ checkout: IConfig}) {
   }
   return <div>
     {checkout.remark}
+    <Image alt="qrcode" src={checkout.url} width={300} />
   </div>
 }
  
