@@ -69,9 +69,8 @@ const styles: Record<string, React.CSSProperties> = {
 };
 
 
-export default function Page({ checkout, base64, user, extra, msgTemplate }: { checkout: IConfig, user: string, extra: string, base64?: string, msgTemplate?: string }) {
+export default function Page({ checkout, base64, user, extra, msgTemplate, defaultExpiry }: { checkout: IConfig, user: string, extra: string, base64?: string, msgTemplate?: string, defaultExpiry?:string }) {
   const [expired, setExpired] = useState(false);
-  const defaultExpiry = new URLSearchParams(location.search).get('expiry');
   const [expiry] = useState(Number(defaultExpiry) || (Date.now() + 2 * 60 * 1000))
   useEffect(() => {
     if (!checkout) {
@@ -130,6 +129,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
   const price = url.searchParams.get('price') || void 0;
   const extra = url.searchParams.get('extra') || '';
   const msgTemplate = url.searchParams.get('msgTemplate');
+  const defaultExpiry = url.searchParams.get('expiry');
   // Fetch data from external API
   const checkout = await generateCheckout(Number(price));
   if (!checkout) return { props: { checkout } };
@@ -147,5 +147,5 @@ export async function getServerSideProps(ctx: NextPageContext) {
   })
 
   // Pass data to the page via props
-  return { props: { checkout, user, extra, base64, msgTemplate } };
+  return { props: { checkout, user, extra, base64, msgTemplate, defaultExpiry } };
 }
