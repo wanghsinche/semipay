@@ -87,7 +87,7 @@ export default function Page({ checkout, base64, user, extra, msgTemplate, defau
       }
       setTimeout(() => {
         checking();
-      }, 30000);
+      }, 10000);
     }
     checking();
   }, [checkout])
