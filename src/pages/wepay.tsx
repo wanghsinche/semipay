@@ -71,6 +71,7 @@ const styles: Record<string, React.CSSProperties> = {
 
 export default function Page({ checkout, base64, user, extra, msgTemplate }: { checkout: IConfig, user: string, extra: string, base64?: string, msgTemplate?: string }) {
   const [expired, setExpired] = useState(false);
+  const [expiry] = useState(Date.now() + 120 * 60 * 1000)
   useEffect(() => {
     if (!checkout) {
       setTimeout(() => {
@@ -78,8 +79,8 @@ export default function Page({ checkout, base64, user, extra, msgTemplate }: { c
       }, 60 * 1000);
       return;
     }
-    const expiry = Date.now() + 120 * 60 * 1000;
     function checking() {
+      console.log('checking', Date.now(), expiry)
       if (Date.now() > expiry) {
         setExpired(true);
         return;
@@ -99,11 +100,11 @@ export default function Page({ checkout, base64, user, extra, msgTemplate }: { c
   if (!checkout) {
     return <div style={styles.container}>
       <div style={styles.background} />
-    <div style={styles.content}>
-      <p style={styles.label}>排队中, 请等待...</p>
-      <div style={styles.qrcode}>
-        ...
-      </div>
+      <div style={styles.content}>
+        <p style={styles.label}>排队中, 请等待...</p>
+        <div style={styles.qrcode}>
+          ...
+        </div>
       </div>
     </div>
   }
@@ -140,7 +141,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
     .replaceAll('{{remark}}', checkout.remark)
     .replaceAll('{{price}}', String(checkout.price)) : {
     user, remark: checkout.remark, extra
-  }).catch(err=>{
+  }).catch(err => {
     console.log(err);
   })
 
