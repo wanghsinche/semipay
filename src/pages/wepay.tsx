@@ -69,9 +69,10 @@ const styles: Record<string, React.CSSProperties> = {
 };
 
 
-export default function Page({ checkout, base64, user, extra, msgTemplate, defaultExpiry }: { checkout: IConfig, user: string, extra: string, base64?: string, msgTemplate?: string, defaultExpiry?:string }) {
-  const [expired, setExpired] = useState(false);
-  const [expiry] = useState(Number(defaultExpiry) || (Date.now() + 2 * 60 * 1000))
+export default function Page({ checkout, base64, user, extra, msgTemplate, defaultExpiry }: { checkout: IConfig, user: string, extra: string, base64?: string, msgTemplate?: string, defaultExpiry:string }) {
+  const [expiry] = useState(Number(defaultExpiry));
+  const [expired, setExpired] = useState(Date.now() > expiry);
+
   useEffect(() => {
     if (!checkout) {
       setTimeout(() => {
@@ -87,7 +88,7 @@ export default function Page({ checkout, base64, user, extra, msgTemplate, defau
       }
       setTimeout(() => {
         checking();
-      }, 10000);
+      }, 2000);
     }
     checking();
   }, [checkout])
@@ -129,7 +130,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
   const price = url.searchParams.get('price') || void 0;
   const extra = url.searchParams.get('extra') || '';
   const msgTemplate = url.searchParams.get('msgTemplate');
-  const defaultExpiry = url.searchParams.get('expiry');
+  const defaultExpiry = url.searchParams.get('expiry') || (Date.now() + 2 * 60 * 1000);
   // Fetch data from external API
   const checkout = await generateCheckout(Number(price));
   if (!checkout) return { props: { checkout } };
