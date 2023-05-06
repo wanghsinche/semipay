@@ -5,6 +5,25 @@ import React, { useEffect, useState } from "react";
 
 const styles: Record<string, React.CSSProperties> = {
   container: {
+    position: 'relative',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
+  },
+  background: {
+    position: 'absolute',
+    top: '-100%',
+    left: '-100%',
+    width: '300%',
+    height: '300%',
+    backgroundImage: 'linear-gradient(135deg, #07c160 0%, #09a550 100%)',
+    transform: 'rotate(-45deg)',
+    zIndex: '-1',
+  },
+  content: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -12,6 +31,8 @@ const styles: Record<string, React.CSSProperties> = {
     backgroundColor: '#fff',
     border: '1px solid #ccc',
     borderRadius: '10px',
+    position: 'relative',
+    zIndex: '1',
   },
   label: {
     fontSize: '18px',
@@ -31,7 +52,18 @@ const styles: Record<string, React.CSSProperties> = {
     fontWeight: 'bold',
     marginTop: '10px',
   },
-
+  description: {
+    fontSize: '14px',
+    marginTop: '10px',
+    marginBottom: '5px',
+    color: '#888',
+  },
+  username: {
+    fontSize: '14px',
+    marginTop: '5px',
+    marginBottom: '10px',
+    color: '#888',
+  },
 };
 
 
@@ -76,10 +108,14 @@ export default function Page({ checkout, base64, user, extra, msgTemplate }: { c
     </div>
   }
   return <div style={styles.container}>
-    <p style={styles.label}>请使用微信扫码支付</p>
-    <p style={styles.label}>{user}的流量会在支付成功后0.5个工作日内更新:</p>
-    <img src={base64} style={styles.qrcode} alt="qrcode" width={100} />
-    <p style={styles.amount}>¥{checkout.price.toFixed(2)}</p>
+    <div style={styles.background} />
+    <div style={styles.content}>
+      <p style={styles.label}>请使用微信扫码支付</p>
+      <img src={base64} style={styles.qrcode} alt="qrcode" width={100} />
+      <p style={styles.amount}>¥{checkout.price.toFixed(2)}</p>
+      <p style={styles.description}>流量会在支付成功后0.5个工作日内更新</p>
+      <p style={styles.username}>用户名：{user}</p>
+    </div>
   </div>
 
 }
