@@ -96,9 +96,12 @@ export default function Page({ checkout, base64, user, extra, msgTemplate }: { c
   // Render data...
   if (!checkout) {
     return <div style={styles.container}>
+      <div style={styles.background} />
+    <div style={styles.content}>
       <p style={styles.label}>排队中, 请等待...</p>
       <div style={styles.qrcode}>
         ...
+      </div>
       </div>
     </div>
   }
@@ -106,10 +109,10 @@ export default function Page({ checkout, base64, user, extra, msgTemplate }: { c
     <div style={styles.background} />
     <div style={styles.content}>
       <p style={styles.label}>请使用微信扫码支付</p>
+      <p style={styles.username}>务必在备注写上你的用户名：{user}</p>
       <img src={base64} style={styles.qrcode} alt="qrcode" width={100} />
       <p style={styles.amount}>¥{checkout.price.toFixed(2)}</p>
       <p style={styles.description}>流量会在支付成功后0.5个工作日内更新</p>
-      <p style={styles.username}>用户名：{user}</p>
     </div>
   </div>
 
@@ -125,7 +128,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
   const msgTemplate = url.searchParams.get('msgTemplate');
   // Fetch data from external API
   const checkout = await generateCheckout(Number(price));
-  if (!checkout) return { props: { checkout, user, price, extra } };
+  if (!checkout) return { props: { checkout } };
 
   const buff = await fetch(checkout.url).then((response) => response.arrayBuffer()); // Get the image as a Blob
 
