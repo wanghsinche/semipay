@@ -11,7 +11,7 @@ export async function callWebhook(info: Record<string, string>|string) {
         })
     }
     const query = new URLSearchParams();
-    Object.entries(([k, v]:[string, string]) => {
+    Object.entries(info).forEach(([k, v]:[string, string]) => {
         query.set(k, v);
     });
     console.log(`${url}&${query.toString()}`)
