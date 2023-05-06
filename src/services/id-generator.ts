@@ -11,9 +11,9 @@ export interface IConfig {
     price: number;
 }
 
-export async function generateCheckout() {
+export async function generateCheckout(price?:number) {
     const config = await get<IConfig[]>(QRCODE_KEY);
-    const idPool = config?.map(el => el.remark);
+    const idPool = config?.filter(el=> !price || el.price === price).map(el => el.remark);
     if (!idPool?.length) throw 'can not read a valid config';
     if (idPool.length < 3) {
         console.warn('The ID Pool is too small');
@@ -22,7 +22,6 @@ export async function generateCheckout() {
     const lockedIds = await kv.zrange<string[]>(ID_LIST_KEY, now, now + oneYear, {
         byScore: true
     });
-    console.log(lockedIds,'lockedids')
     const freeId = idPool.find(id => !lockedIds.includes(id));
     if (!freeId) return null;
     await kv.zadd(ID_LIST_KEY, { score: now + duration, member: freeId });
