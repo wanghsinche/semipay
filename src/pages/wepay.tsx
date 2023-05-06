@@ -59,6 +59,8 @@ const styles: Record<string, React.CSSProperties> = {
     color: '#888',
   },
   username: {
+    wordBreak: 'break-word',
+    textAlign: 'center',
     fontSize: '14px',
     marginTop: '5px',
     marginBottom: '10px',
