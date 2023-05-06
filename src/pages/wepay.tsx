@@ -77,11 +77,6 @@ export default function Page({ checkout, base64, user, extra, msgTemplate }: { c
       return;
     }
     const expiry = Date.now() + 120 * 60 * 1000;
-    callWebhook(msgTemplate ? msgTemplate.replaceAll('{{user}}', user)
-      .replaceAll('{{remark}}', checkout.remark)
-      .replaceAll('{{price}}', String(checkout.price)) : {
-      user, remark: checkout.remark, extra
-    })
     function checking() {
       if (Date.now() > expiry) {
         setExpired(true);
@@ -124,9 +119,9 @@ export default function Page({ checkout, base64, user, extra, msgTemplate }: { c
 export async function getServerSideProps(ctx: NextPageContext) {
   console.log('vtx', ctx.req?.url)
   const url = new URL(ctx.req?.url || '', 'https://base.com');
-  const user = url.searchParams.get('user');
+  const user = url.searchParams.get('user') || '';
   const price = url.searchParams.get('price') || void 0;
-  const extra = url.searchParams.get('extra');
+  const extra = url.searchParams.get('extra') || '';
   const msgTemplate = url.searchParams.get('msgTemplate');
   // Fetch data from external API
   const checkout = await generateCheckout(Number(price));
@@ -136,6 +131,13 @@ export async function getServerSideProps(ctx: NextPageContext) {
 
   const base64 = `data:image/jpg;base64,${Buffer.from(buff).toString('base64')}`;
 
+  callWebhook(msgTemplate ? msgTemplate.replaceAll('{{user}}', user)
+    .replaceAll('{{remark}}', checkout.remark)
+    .replaceAll('{{price}}', String(checkout.price)) : {
+    user, remark: checkout.remark, extra
+  }).catch(err=>{
+    console.log(err);
+  })
 
   // Pass data to the page via props
   return { props: { checkout, user, extra, base64, msgTemplate } };
