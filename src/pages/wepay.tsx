@@ -71,7 +71,8 @@ const styles: Record<string, React.CSSProperties> = {
 
 export default function Page({ checkout, base64, user, extra, msgTemplate }: { checkout: IConfig, user: string, extra: string, base64?: string, msgTemplate?: string }) {
   const [expired, setExpired] = useState(false);
-  const [expiry] = useState(Date.now() + 2 * 60 * 1000)
+  const defaultExpiry = new URLSearchParams(location.search).get('expiry');
+  const [expiry] = useState(Number(defaultExpiry) || (Date.now() + 2 * 60 * 1000))
   useEffect(() => {
     if (!checkout) {
       setTimeout(() => {
