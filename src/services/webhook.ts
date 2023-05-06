@@ -5,12 +5,17 @@ const WEBHOOK_KEY = 'webhook'
 export async function callWebhook(info: Record<string, string>|string) {
     const url = await get(WEBHOOK_KEY);
     if (typeof info === 'string') {
-        return fetch(`${url}${info}`)
+        console.log(`${url}${info}`)
+        return fetch(`${url}${info}`, {
+            method: 'get'
+        })
     }
     const query = new URLSearchParams();
     Object.entries(([k, v]:[string, string]) => {
         query.set(k, v);
     });
-
-    return fetch(`${url}&${query.toString()}`)
+    console.log(`${url}&${query.toString()}`)
+    return fetch(`${url}&${query.toString()}`, {
+        method: 'get'
+    })
 }
