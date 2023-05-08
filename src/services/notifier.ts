@@ -81,16 +81,16 @@ async function sendEmail(info: IInfo){
     let testAccount = await nodemailer.createTestAccount();
 
     // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 587,
-      secure: false, // true for 465, false for other ports
-      auth: {
-        user: testAccount.user, // generated ethereal user
-        pass: testAccount.pass, // generated ethereal password
-      },
+    // https://ethereal.email/create
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.ethereal.email',
+        port: 587,
+        auth: {
+            user: 'ernestina.deckow@ethereal.email',
+            pass: '9hRMmM298Xf214ga8j'
+        }
     });
-  
+      
     // send mail with defined transport object
     let res = await transporter.sendMail({
       from: `noreply@${basename}`, // sender address
@@ -118,6 +118,8 @@ async function sendTelegram(info: IInfo){
     -uid: ${uid}
 
     click [here](${approval}) to confirm the payment
+
+    ${approval}
     `;
     await fetch(`${tg}&parse_mode=markdown&text=${encodeURIComponent(msg)}`)
 }
