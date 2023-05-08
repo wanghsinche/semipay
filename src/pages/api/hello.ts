@@ -1,18 +1,39 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
+import { getToken } from '@/services/get-token';
+import { get } from '@vercel/edge-config';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { createHmac } from 'node:crypto';
 
 type Data = {
-  name: string,
-  code: string,
-  saurce: string;
+  msg: string;
+  url: string;
 }
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const code = createHmac('sha256', 'mykey').update('101').digest('base64');
-  
-  res.status(200).json({ name: 'John Doe', code,  saurce: '101'})
+  const info:Record<string, string|number> = {
+    price: 19,
+    user: 'test@user.com',
+    extra: '19 one month',
+    timestamp: Date.now()
+  }
+  const hostname = await get('hostname') as string;
+
+  const secret = await get('secret') as string;
+  const text = Object.keys(info).sort().map(k=>info[k]).join(',');
+
+  const token = createHmac('sha256', secret).update(text).digest('base64');
+  console.log('here', JSON.stringify({...info, token}))
+  const checkout = await fetch(`${hostname}/api/checkout`, {
+    method: 'post',
+    body: JSON.stringify({...info, token})
+  }).then(res=>{
+    console.log(res.status)
+    return res;
+  }).then(res=>res.json());
+
+  return res.status(200).json({msg: 'ok', url: checkout.url});
+
 }
