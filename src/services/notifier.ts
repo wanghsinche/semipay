@@ -57,7 +57,7 @@ async function getConfirmLink(info: IInfo){
 
 
 
-    return `${hostname}/api/confirm/${query.toString()}&token=${token}`;
+    return `${hostname}/api/confirm?${query.toString()}&token=${token}`;
 }
 
 async function sendEmail(info: IInfo){
