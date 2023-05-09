@@ -118,8 +118,6 @@ async function sendTelegram(info: IInfo){
     -uid: ${uid}
 
     click [here](${approval}) to confirm the payment
-
-    ${approval}
     `;
     await fetch(`${tg}&parse_mode=markdown&text=${encodeURIComponent(msg)}`)
 }
