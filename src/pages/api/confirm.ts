@@ -6,6 +6,7 @@ import { IInfo } from '@/services/notifier';
 
 interface IReqData extends IInfo {
     token: string;
+    timestamp: number;
 }
 
 type Data = {
@@ -25,7 +26,8 @@ export default async function handler(
       user: req.query.user as string,
       extra: req.query.extra as string,
       uid: req.query.uid as string,
-      remark: req.query.remark as string
+      remark: req.query.remark as string,
+      timestamp: Number(req.query.timestamp)
   };
   const token = req.query.token as string;
 

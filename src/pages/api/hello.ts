@@ -25,7 +25,6 @@ export default async function handler(
   const text = Object.keys(info).sort().map(k=>info[k]).join(',');
 
   const token = createHmac('sha256', secret).update(text).digest('base64');
-  console.log('here', JSON.stringify({...info, token}))
   const checkout = await fetch(`${hostname}/api/checkout`, {
     method: 'post',
     body: JSON.stringify({...info, token})

@@ -24,10 +24,8 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   if (req.method!=='POST') return   res.status(400).json({ msg: 'failed'});
-  console.log('before price')
 
   const { price, user, timestamp, extra, token} = JSON.parse(req.body) as IReqData;
-  console.log('price', price)
   const hostname = await get('hostname') as string;
 
   const codeShouldBe = await getToken({price, user, timestamp, extra});
