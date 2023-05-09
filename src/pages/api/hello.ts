@@ -14,9 +14,9 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const info:Record<string, string|number> = {
-    price: 19,
-    user: 'test@user.com',
-    extra: '19 one month',
+    price: 100,
+    user: 'donate@user.com',
+    extra: 'donate',
     timestamp: Date.now()
   }
   const hostname = await get('hostname') as string;

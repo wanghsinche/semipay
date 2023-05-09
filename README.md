@@ -6,7 +6,9 @@ It helps create a personal semi-automatic payment collection system and eliminat
 
 ## Demo
 
-Testing checkout link: [https://payment-gmirnpskn-wanghsinche.vercel.app/semipay?uid=20f88c8d-fbd9-448a-b0b9-08ce9243e61b](https://payment-gmirnpskn-wanghsinche.vercel.app/semipay?uid=20f88c8d-fbd9-448a-b0b9-08ce9243e61b)
+Testing checkout link: [https://payment-mauve.vercel.app
+/api/hello](https://payment-mauve.vercel.app
+/api/hello)
 
 ## Usage
 
