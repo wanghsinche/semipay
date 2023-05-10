@@ -71,14 +71,13 @@ const styles: Record<string, React.CSSProperties> = {
 
 
 export default function Page({ checkout, base64, user, }: { checkout: IConfig, user: string, extra: string, base64?: string }) {
-  const [expiry] = useState(Date.now() + duration);
-  const [expired, setExpired] = useState(false);
+  const [expiry, setExpiry] = useState(duration);
 
   useEffect(() => {
     function checking() {
-      console.log('checking', Date.now(), expiry)
-      if (Date.now() > expiry) {
-        setExpired(true);
+      console.log('checking', expiry);
+      setExpiry(expiry-1000);
+      if (expiry <= 0) {
         return;
       }
       setTimeout(() => {
@@ -86,10 +85,10 @@ export default function Page({ checkout, base64, user, }: { checkout: IConfig, u
       }, 1000);
     }
     checking();
-  }, [expiry])
+  }, [])
 
 
-  if (expired || !user) {
+  if (expiry <= 0 || !user) {
     return <div>
       页面已经过期, 请关闭
     </div>
@@ -117,6 +116,7 @@ export default function Page({ checkout, base64, user, }: { checkout: IConfig, u
       <p style={styles.username}>务必在备注写上你的用户名：{user}</p>
       <img src={base64} style={styles.qrcode} alt="qrcode" width={100} />
       <p style={styles.amount}>¥{checkout.price.toFixed(2)}</p>
+      <p style={styles.description}>页面{Math.floor(expiry/1000)}秒后过期</p>
       <p style={styles.description}>流量会在支付成功后0.5个工作日内更新</p>
     </div>
   </div>
