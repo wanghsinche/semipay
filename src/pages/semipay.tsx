@@ -113,9 +113,9 @@ export default function Page({ checkout, base64, user, }: { checkout: IConfig, u
     <div style={styles.content}>
       <p style={styles.label}>请使用微信扫码支付</p>
       <p style={styles.username}>务必在备注写上你的用户名：{user}</p>
-      <p style={styles.description}>流量会在支付成功后0.5个工作日内更新</p>
       <img src={base64} style={styles.qrcode} alt="qrcode" width={100} />
       <p style={styles.amount}>¥{checkout.price.toFixed(2)}</p>
+      <p style={styles.description}>流量会在支付成功后0.5个工作日内更新</p>
       <p style={styles.description}>页面{Math.floor(expiry)}秒后过期</p>
     </div>
   </div>
