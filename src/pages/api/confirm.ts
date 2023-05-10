@@ -46,8 +46,8 @@ export default async function handler(
   if (!confirm) {
     await recordedToken(token);
     return res.status(200).setHeader(
-      'content-type', 'html/text'
-    ).send(`click <a href="${req.url+'&confirm=true'}">here</a> to confirm`)
+      'content-type', 'text/html'
+    ).send(`<div>click <a href="${req.url+'&confirm=true'}">here</a> to confirm</div>`)
   }
 
   const confirmWebhook = await get(SEMIPAY_CONFIRM) as string;
