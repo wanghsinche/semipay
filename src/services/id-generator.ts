@@ -13,8 +13,8 @@ export interface IConfig {
 
 export async function generateCheckout(price?:number) {
     const config = await get<IConfig[]>(QRCODE_KEY);
-    const idPool = config?.filter(el=> !price || el.price === price).map(el => el.remark);
-    if (!idPool?.length) throw 'can not read a valid config';
+    const idPool = config?.filter(el=> typeof price === 'undefined' || el.price === price).map(el => el.remark);
+    if (!idPool?.length) throw `can not read a valid config with the price of ${price}, please update the qrcode list`;
     if (idPool.length < 3) {
         console.warn('The ID Pool is too small');
     }
