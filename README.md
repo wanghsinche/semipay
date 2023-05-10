@@ -6,7 +6,7 @@ It helps create a personal semi-automatic payment collection system and eliminat
 
 ## Demo
 
-Testing checkout link: [https://payment-mauve.vercel.app/api/hello](https://payment-mauve.vercel.app/api/hello)
+Get testing checkout link: [https://payment-mauve.vercel.app](https://payment-mauve.vercel.app)
 
 ## Deploy
 

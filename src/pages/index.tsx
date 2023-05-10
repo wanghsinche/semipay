@@ -21,7 +21,9 @@ export default function Home() {
 
         <div className="container mx-auto py-6">
           <h1 className="text-3xl font-bold mb-4">SEMIPAY - An Open Source Wechat Payment Solution</h1>
-
+          <p className="mb-8">
+            <a className="mb-8" href="https://github.com/wanghsinche/semipay" data-size="large" data-show-count="true" aria-label="Star wanghsinche/semipay on GitHub">Star</a>
+          </p>
           <p className="mb-8">
             Welcome to SEMIPAY, a semi-automatic WeChat payment solution that can be easily deployed privately with a single click on Vercel.
           </p>
@@ -31,51 +33,47 @@ export default function Home() {
           <h2 className="text-2xl font-bold my-4">Demo</h2>
 
           <p className="mb-8 bg-gray-200">
-            <span>Testing checkout link: </span>
-            <a className='text-blue-800 break-all' target='blank' href={checkout}>{checkout}</a>
+            <span className='text-xl'>Testing checkout link: </span>
+            <a className='text-red-800 break-all' target='blank' href={checkout}>{checkout}</a>
 
           </p>
 
           <h2 className="text-2xl font-bold my-4">Usage</h2>
 
           <h3 className="text-xl font-bold my-4">Set up the config</h3>
+          <p className="mb-8 bg-gray-200">
+            use the following JSON to set up your vercel edge-config  https://vercel.com/dashboard/stores/edge-config
+          </p>
+
           <pre className="bg-gray-200 p-4 rounded ">
             <code className='break-all'>
               {`
-               // use the following JSON to set up your vercel edge-config
-               // https://vercel.com/dashboard/stores/edge-config
-                {
-                  "qrcode with remark and fixed amount, suggest >5 code": "",
-                  "qrcode": [
-                    {
-                      "url": "https://.co/storage/v1/object/public/static/five1.jpg",
-                      "remark": "five1",
-                      "price": 5
-                    },
-                    {
-                      "url": "https://.co/storage/v1/object/public/static/five2.jpg",
-                      "remark": "five2",
-                      "price": 5
-                    },
-                    {
-                      "url": "https://.co/storage/v1/object/public/static/five3.jpg",
-                      "remark": "five3",
-                      "price": 5
-                    }
-                  ],
-                  "for telegram notify": "",
-                  "telegram": "https://api.telegram.org//sendMessage?chat_id=1029979132&",
-                  "for email notify": "",                  
-                  "email": "you@example.com",
-                  "for webhook notify": "",
-                  "notifier": "",
-                  "your payment website hostname": "",
-                  "hostname": "https://payment.vercel.app",
-                  "webhook for confirmation":"",
-                  "confirmWebhook": "https://pay.findata-be.uk/api/fake?",
-                  "secret to create token": "",
-                  "secret": "123453"
-                }
+{
+  "qrcode": [
+    {
+      "url": "https://..co/storage/v1/object/public/static/five1.jpg",
+      "remark": "five1",
+      "price": 5
+    },
+    {
+      "url": "https://..co/storage/v1/object/public/static/five2.jpg",
+      "remark": "five2",
+      "price": 5
+    },
+    {
+      "url": "https://..co/storage/v1/object/public/static/five3.jpg",
+      "remark": "five3",
+      "price": 5
+    }
+  ],
+  "webhook": "https://ok/api/wepaynotify?",
+  "telegram": "https://api.telegram.org/botxxxx:xxxx/sendMessage?chat_id=xxx&",
+  "email": "",
+  "notifier": "",
+  "hostname": "https://pay",
+  "confirmWebhook": "https://ok/api/wepaynotify?",
+  "secret": "123"
+}
               `}
             </code>
           </pre>
@@ -83,22 +81,33 @@ export default function Home() {
           <pre className="bg-gray-200 p-4 rounded ">
             <code className='break-all'>
               {`
-          
-          const hostname = 'https://pay.domain';
+const hostname = 'https://your.pay.domain';
+// prepare your info
+const info = {
+    price: 0,
+    user: 'donate@user.com',
+    extra: 'donate',
+    timestamp: Date.now()
+};
 
-          const secret = process.env.SECRET;
-          const text = Object.keys(info).sort().map(k=> info[k]).join(',');
+// get the secret
+const secret = process.env.SECRET;
+// in alphabet order
+const text = Object.keys(info).sort().map(k=> info[k]).join(','); 
+// use sha256 to encrypt your info
+const token = createHmac('sha256', secret).update(text).digest('base64');
 
-          const token = createHmac('sha256', secret).update(text).digest('base64');
-          const checkout = await fetch(\`\${hostname}/api/checkout\`, {
-            method: 'post',
-            body: JSON.stringify({...info, token})
-          }).then(res=>{
-            if(res.status !== 200) throw new Error(res.status);
-            return res;
-          }).then(res=>res.json());
 
-          console.log(checkout);
+const checkout = await fetch(\`\${hostname}/api/checkout\`, {
+    method: 'post',
+    body: JSON.stringify({...info, token})
+}).then(res=>{
+    if(res.status !== 200) throw new Error(res.status);
+    return res;
+}).then(res=>res.json());
+
+// get the checkout url
+console.log(checkout);
 `}
             </code>
           </pre>
