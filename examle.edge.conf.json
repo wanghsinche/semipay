@@ -1,0 +1,26 @@
+{
+  "qrcode": [
+    {
+      "url": "https://..co/storage/v1/object/public/static/five1.jpg",
+      "remark": "five1",
+      "price": 5
+    },
+    {
+      "url": "https://..co/storage/v1/object/public/static/five2.jpg",
+      "remark": "five2",
+      "price": 5
+    },
+    {
+      "url": "https://..co/storage/v1/object/public/static/five3.jpg",
+      "remark": "five3",
+      "price": 5
+    }
+  ],
+  "webhook": "https://ok/api/wepaynotify?",
+  "telegram": "https://api.telegram.org/botxxxx:xxxx/sendMessage?chat_id=xxx&",
+  "email": "",
+  "notifier": "",
+  "hostname": "https://pay",
+  "confirmWebhook": "https://ok/api/wepaynotify?",
+  "secret": "123"
+}
