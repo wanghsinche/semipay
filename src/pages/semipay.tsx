@@ -73,17 +73,18 @@ const styles: Record<string, React.CSSProperties> = {
 export default function Page({ checkout, base64, user, }: { checkout: IConfig, user: string, extra: string, base64?: string }) {
   const [expiry, setExpiry] = useState(duration);
 
-  useEffect(() => {
-    function checking() {
-      console.log('checking', expiry);
-      setExpiry(expiry-1000);
-      if (expiry <= 0) {
-        return;
-      }
-      setTimeout(() => {
-        checking();
-      }, 1000);
+  function checking() {
+    console.log('checking', expiry);
+    setExpiry(expiry-1000);
+    if (expiry <= 0) {
+      return;
     }
+    setTimeout(() => {
+      checking();
+    }, 1000);
+  }
+
+  useEffect(() => {
     checking();
   }, [])
 
