@@ -33,6 +33,7 @@ export default async function handler(
     return res;
   }).then(res=>res.json());
 
-  return res.status(200).json({msg: 'ok', url: checkout.url});
+  const url = new URL(checkout.url);
+  return res.status(200).json({msg: 'ok', url: url.pathname+url.search});
 
 }
