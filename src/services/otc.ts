@@ -23,12 +23,12 @@ export async function expireUID(uid: string) {
     return uid;
 }
 
-export async function tokenCanBeUsed(token: string) {
+export async function firstTimeToken(token: string) {
     const res = await kv.get(token);
     return !res;
 }
 
-export async function forbidToken(token: string) {
+export async function usedToken(token: string) {
     await kv.set(token, true, {
         ex: UidDuration
     })
