@@ -1,6 +1,6 @@
 # SEMIPAY - 一个开源的微信支付解决方案
 
-[EN VERSION](/readme.en.md)
+[ENGLISH VERSION](/README.en.md)
 
 欢迎使用 SEMIPAY，一个半自动的微信支付解决方案，只需在 Vercel 上点击一次即可轻松部署私有的支付系统。
 
