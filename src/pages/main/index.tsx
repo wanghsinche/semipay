@@ -6,10 +6,6 @@ import Usage from './usage';
 export default function SEMIPay() {
   return (
     <div>
-      <Head>
-        <title>SEMIPAY - 一个开源的微信支付解决方案</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <main>
         <h1 className="text-4xl font-bold text-center mb-8">SEMIPAY - 一个开源的微信支付解决方案</h1>
         <p className="mb-2">欢迎使用 SEMIPAY，一个半自动的微信支付解决方案，只需在 Vercel 上点击一次即可轻松部署私有的支付系统。</p>
@@ -23,6 +19,7 @@ export default function SEMIPay() {
         </p>
 
         <Demo />
+        <Usage/>
       </main>
     </div>
   );
