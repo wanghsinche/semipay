@@ -36,7 +36,7 @@ export default function Usage() {
 }`}
             </pre>
             <p className="mb-4">
-                Once you've set up the configuration, you can get a checkout link from your business server by sending a POST request to the SEMIPAY API endpoint at <code>https://your.pay.domain/api/checkout</code> with the following parameters:
+                Once you&apos;ve set up the configuration, you can get a checkout link from your business server by sending a POST request to the SEMIPAY API endpoint at <code>https://your.pay.domain/api/checkout</code> with the following parameters:
             </p>
             <ul className="list-disc list-inside mb-4">
                 <li><code>price</code>: The price of the item being sold</li>
