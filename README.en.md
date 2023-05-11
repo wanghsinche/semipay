@@ -12,7 +12,7 @@ Get testing checkout link: [https://payment-mauve.vercel.app](https://payment-ma
 
 Deploy your own payment site on vercel by one click:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwanghsinche%2Fsemipay.git&env=NODE_ENV&envDescription=%E4%BD%A0%E5%BF%85%E9%A1%BB%E5%85%88%E5%89%8D%E5%BE%80https%3A%2F%2Fvercel.com%2Fdashboard%2Fstores%EF%BC%8C%E5%88%9B%E5%BB%BA%E5%B1%9E%E4%BA%8E%E8%87%AA%E5%B7%B1%E7%9A%84KV%E5%92%8Cedge%20config%2C%20%E5%B9%B6%E5%A1%AB%E5%85%A5%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF.%20%20%E5%8F%AF%E5%8F%82%E8%80%83%20%20https%3A%2F%2Fpayment-mauve.vercel.app%2F%20%20%5Cn%20You%20created%20the%20KV%20and%20edge%20config%20in%20storage%20page.&envLink=https%3A%2F%2Fvercel.com%2Fdashboard%2Fstores&demo-title=SEMIPAY&demo-description=SEMIPAY%20-%20An%20Open%20Source%20Wechat%20Payment%20Solution&demo-url=https%3A%2F%2Fpayment-mauve.vercel.app%2F)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/fake)
 
 ## Usage
 
