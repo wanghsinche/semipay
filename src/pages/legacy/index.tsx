@@ -20,7 +20,7 @@ export default function SemiPay (){
           <div className="container mx-auto py-6">
             <h1 className="text-3xl font-bold mb-4">SEMIPAY - An Open Source Wechat Payment Solution</h1>
             <p className="mb-8">
-              <a className="mb-8" href="https://github.com/wanghsinche/semipay" data-size="large" data-show-count="true" aria-label="Star wanghsinche/semipay on GitHub">Star</a>
+              <a className="mb-8" href="https://github.com/wanghsinche/semipay" data-size="large" data-show-count="true" aria-label="Star wanghsinche/semipay on GitHub"><i className="ri-github-line"></i>Star</a>
             </p>
             <p className="mb-8">
               Welcome to SEMIPAY, a semi-automatic WeChat payment solution that can be easily deployed privately with a single click on Vercel.
@@ -28,7 +28,7 @@ export default function SemiPay (){
             <p className="mb-8">
               It helps create a personal semi-automatic payment collection system and eliminates the need for record filing and transaction fees associated with online payments
             </p>
-            <p className="mb-8">github fork
+            <p className="mb-8">github fork<i className="ri-github-line"></i>
                 <a className="mx-8 text-red-800" href="https://github.com/wanghsinche/semipay" data-size="large" data-show-count="true" aria-label="Star wanghsinche/semipay on GitHub">https://github.com/wanghsinche/semipay</a>
             </p>
 

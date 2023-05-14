@@ -4,7 +4,7 @@ export default function Document() {
   return (
     <Html lang="zh">
       <Head >
-        <link rel="stylesheet" href="https://cdn.remixicon.com/releases/v1.2.2/remixicon.css" />
+      <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet" />
       </Head>
       <body>
         <Main />
