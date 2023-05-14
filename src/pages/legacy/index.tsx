@@ -28,7 +28,7 @@ export default function SemiPay (){
             <p className="mb-8">
               It helps create a personal semi-automatic payment collection system and eliminates the need for record filing and transaction fees associated with online payments
             </p>
-            <p className="mb-8">github fork<i className="ri-github-line"></i>
+            <p className="mb-8"><i className="ri-github-line"></i> github fork
                 <a className="mx-8 text-red-800" href="https://github.com/wanghsinche/semipay" data-size="large" data-show-count="true" aria-label="Star wanghsinche/semipay on GitHub">https://github.com/wanghsinche/semipay</a>
             </p>
 
