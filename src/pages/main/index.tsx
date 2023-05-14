@@ -15,7 +15,7 @@ export default function SEMIPay() {
         <p className="mb-2">要做成自动化收款系统也是可以，比如用著名的wechaty来监听微信付款消息。但需要你自己开发，一个全自动收款 系统是非常复杂的。</p>
 
         <p className="mb-2">前往github fork 部署：
-            <a className="mx-8" href="https://github.com/wanghsinche/semipay" data-size="large" data-show-count="true" aria-label="Star wanghsinche/semipay on GitHub"><i className="ri-github-line"></i>Star</a>
+            <a className="mx-8" href="https://github.com/wanghsinche/semipay" data-size="large" data-show-count="true" aria-label="Star wanghsinche/semipay on GitHub"><i className="ri-github-line"></i>https://github.com/wanghsinche/semipay</a>
         </p>
 
         <Demo />
