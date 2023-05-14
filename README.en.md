@@ -115,7 +115,7 @@ console.log(checkout);
 /**
   A checkout was placed 
     
-    -user: wanghsinche@hotmail.com
+    -user: demo@user.com
     -price: 5
     -remark: five1
     -extra: manual-5
