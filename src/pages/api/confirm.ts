@@ -30,11 +30,11 @@ export default async function handler(
     timestamp: Number(req.query.timestamp)
   };
 
-
   const token = req.query.token as string;
 
   const codeShouldBe = await getToken(info);
 
+  console.log(info, token, codeShouldBe)
 
   if (token !== codeShouldBe) return res.status(400).json({ msg: 'wrong token' });
 
