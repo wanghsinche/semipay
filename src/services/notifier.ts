@@ -54,10 +54,9 @@ async function getConfirmLink(info: IInfo){
     Object.entries(data).forEach(([k, v]:[string, string|number]) => {
         query.set(k, String(v));
     });
+    query.set('token', token);
 
-
-
-    return `${hostname}/api/confirm?${query.toString()}&token=${token}`;
+    return `${hostname}/api/confirm?${query.toString()}`;
 }
 
 async function sendEmail(info: IInfo){

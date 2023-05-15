@@ -53,7 +53,7 @@ export default async function handler(
   const confirmWebhook = await get(SEMIPAY_CONFIRM) as string;
 
   try {
-    await fetch(`${confirmWebhook}&token=${token}`, {
+    await fetch(`${confirmWebhook}&token=${encodeURIComponent(token)}`, {
       method: 'post',
       body: JSON.stringify(info)
     }).then(r => { if (r.status !== 200) throw r.statusText; return r });
