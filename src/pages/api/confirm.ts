@@ -34,7 +34,6 @@ export default async function handler(
 
   const codeShouldBe = await getToken(info);
 
-  console.log(info, token, codeShouldBe)
 
   if (token !== codeShouldBe) return res.status(400).json({ msg: 'wrong token' });
 
