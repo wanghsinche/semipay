@@ -1,6 +1,8 @@
 import { get } from '@vercel/edge-config';
 import { getToken } from './get-token';
+import { promisify } from 'util';
 import nodemailer from 'nodemailer';
+import SendMail from 'sendmail';
 
 const SEMIPAY_EMAIL = 'email'
 const SEMIPAY_TG = 'telegram'
@@ -119,4 +121,22 @@ async function sendTelegram(info: IInfo){
     click [here](${approval}) to confirm the payment
     `;
     await fetch(`${tg}&parse_mode=markdown&text=${encodeURIComponent(msg)}`)
+}
+
+export async function sendReceipt(info: IInfo ) {
+    const sender =  promisify(SendMail({}));
+    
+    const hostname = await get('hostname') as string;
+    const suffix = new URL(hostname).hostname;
+
+    const reply = await sender({
+        from: `no-reply@${suffix}`,
+        to: info.user,
+        subject: 'test sendmail',
+        html: 'Mail of test sendmail ',
+      });
+    
+    console.log(reply);
+
+    return reply;
 }

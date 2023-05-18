@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { get } from '@vercel/edge-config';
 import { getToken } from '@/services/get-token';
-import { IInfo } from '@/services/notifier';
+import { IInfo, sendReceipt } from '@/services/notifier';
 import { usedToken as recordedToken, firstTimeToken } from '@/services/otc';
 interface IReqData extends IInfo {
   token: string;
@@ -56,6 +56,8 @@ export default async function handler(
       method: 'post',
       body: JSON.stringify(info)
     }).then(r => { if (r.status !== 200) throw r.statusText; return r });
+
+    await sendReceipt(info)
 
   } catch (error) {
     return res.status(400).json({ msg: String(error) });
