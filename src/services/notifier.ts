@@ -1,8 +1,6 @@
 import { get } from '@vercel/edge-config';
 import { getToken } from './get-token';
-import { promisify } from 'util';
 import nodemailer from 'nodemailer';
-import SendMail from 'sendmail';
 
 const SEMIPAY_EMAIL = 'email'
 const SEMIPAY_TG = 'telegram'

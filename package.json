@@ -14,21 +14,21 @@
     "@types/react-dom": "18.2.4",
     "@vercel/edge-config": "^0.1.9",
     "@vercel/kv": "^0.1.1",
+    "@vercel/postgres-kysely": "^0.3.0",
     "autoprefixer": "10.4.14",
     "eslint": "8.39.0",
     "eslint-config-next": "13.4.1",
+    "kysely": "^0.24.2",
     "next": "13.4.1",
     "nodemailer": "^6.9.1",
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sendmail": "^1.6.1",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
   },
   "devDependencies": {
     "@types/nodemailer": "^6.4.7",
-    "@types/sendmail": "^1.4.4",
     "vercel": "^29.1.1"
   }
 }

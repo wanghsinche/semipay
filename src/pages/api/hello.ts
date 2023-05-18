@@ -14,7 +14,7 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const info:Record<string, string|number> = {
-    price: 0,
+    price: 5,
     user: 'donate@user.com',
     extra: 'donate',
     timestamp: Date.now()
