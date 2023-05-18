@@ -22,13 +22,11 @@
     "postcss": "8.4.23",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "sendmail": "^1.6.1",
     "tailwindcss": "3.3.2",
     "typescript": "5.0.4"
   },
   "devDependencies": {
     "@types/nodemailer": "^6.4.7",
-    "@types/sendmail": "^1.4.4",
     "vercel": "^29.1.1"
   }
 }
