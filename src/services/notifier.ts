@@ -1,8 +1,6 @@
 import { get } from '@vercel/edge-config';
 import { getToken } from './get-token';
-import { promisify } from 'util';
 import nodemailer from 'nodemailer';
-import SendMail from 'sendmail';
 
 const SEMIPAY_EMAIL = 'email'
 const SEMIPAY_TG = 'telegram'
@@ -124,19 +122,34 @@ async function sendTelegram(info: IInfo){
 }
 
 export async function sendReceipt(info: IInfo ) {
-    const sender =  promisify(SendMail({}));
     
     const hostname = await get('hostname') as string;
     const suffix = new URL(hostname).hostname;
 
-    const reply = await sender({
-        from: `no-reply@${suffix}`,
-        to: info.user,
-        subject: 'test sendmail',
-        html: 'Mail of test sendmail ',
-      });
-    
-    console.log(reply);
+  // Generate test SMTP service account from ethereal.email
+  // Only needed if you don't have a real mail account for testing
+  let testAccount = await nodemailer.createTestAccount();
 
-    return reply;
+  // create reusable transporter object using the default SMTP transport
+  let transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: testAccount.user, // generated ethereal user
+      pass: testAccount.pass, // generated ethereal password
+    },
+  });
+
+  // send mail with defined transport object
+  let reply = await transporter.sendMail({
+    from: `"Fred Foo 👻" <foo@${suffix}>`, // sender address
+    to: info.user, // list of receivers
+    subject: "Hello ✔", // Subject line
+    text: "Hello world?", // plain text body
+    html: "<b>Hello world?</b>", // html body
+  });
+
+  console.log(reply);
+
 }
