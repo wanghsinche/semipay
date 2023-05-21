@@ -4,6 +4,7 @@ import { get } from '@vercel/edge-config';
 export const QRCODE_KEY = 'qrcode';
 export const ID_LIST_KEY = 'payment_id_list';
 export const duration = 1000 * 60 * 2; // 2min
+export const overlap = 1000 * 30 // 30 secs
 export const oneYear = 1000 * 3600 * 24 * 360
 export interface IConfig {
     url: string;
@@ -24,7 +25,7 @@ export async function generateCheckout(price?:number) {
     });
     const freeId = idPool.sort(()=>0.5-Math.random()).find(id => !lockedIds.includes(id));
     if (!freeId) return null;
-    await kv.zadd(ID_LIST_KEY, { score: now + duration, member: freeId });
+    await kv.zadd(ID_LIST_KEY, { score: now + duration + overlap, member: freeId });
 
     return config?.find(el => el.remark === freeId);
 }
