@@ -19,6 +19,23 @@
 
 获取测试结账链接：[https://payment-mauve.vercel.app](https://payment-mauve.vercel.app)
 
+## Data Flow
+```
+bot     | client                  |           server                                   |   store  
+----------------------------------------------------------------------------------------------
+        | place checkout -->      |                                                    |          
+        |                         | [uid, price, user, extra, ts]                      |  --> kv  
+        | checkout link<--        |                                                    |          
+        |request semipay -->      |                                                    |          
+        |                         |get [uid, price, user, extra, ts] + assign `remark` |-->  kv   
+        |render semipay page      |                                                    |          
+        |pay via wechat           |                                                    |          
+        |                         |                                                    |          
+got msg |                         |   post transaction : remark, ts, price, raw log    | SQL DB
+        | try to confirm with UID |   get `remark, ts` from uid, query `remark, ts`    | KV, SQL DB
+        |                         |   send confirm request to business server          | 
+```
+
 ## 用法
 
 ### 准备好配置

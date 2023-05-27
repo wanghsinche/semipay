@@ -1,6 +1,6 @@
 import { IConfig, duration, generateCheckout } from "@/services/id-generator";
 import { sendMsg } from "@/services/notifier";
-import { expireUID, retrieveInfo } from "@/services/otc";
+import { expireUID, retrieveInfo, updateRemark } from "@/services/otc";
 import { NextPageContext } from "next";
 import React, { useEffect, useState } from "react";
 
@@ -70,18 +70,58 @@ const styles: Record<string, React.CSSProperties> = {
 };
 
 
-export default function Page({ checkout, base64, user, }: { checkout: IConfig, user: string, extra: string, base64?: string }) {
+export default function Page({ checkout, base64, user, uid }: { checkout: IConfig, user: string, extra: string, base64?: string, uid: string }) {
   const [expiry, setExpiry] = useState(duration);
 
+  const [paid, setPaid] = useState(false);
+
+  async function checkPaid() {
+    try {
+      const res = await fetch(`/api/status?uid=${uid}`, {
+        method: 'GET'
+      }).then(res => {
+        if (res.status !== 200) throw res.status
+        return res.json();
+      });
+      if (res.status) {
+        setPaid(true);
+      }
+    } catch (error) {
+      console.log('waiting')
+    }
+  }
+
   useEffect(() => {
+    if (paid) {
+      return;
+    }
+
     if (expiry <= 0) {
       return;
     }
     setTimeout(() => {
-      setExpiry(expiry-1000);
+      setExpiry(expiry - 1000);
+      if (expiry % 2000 === 0) {
+        checkPaid();
+      } 
     }, 1000);
   }, [expiry])
 
+
+  if (paid) {
+    return <div style={styles.container}>
+    <div style={styles.background} />
+    <div style={styles.content}>
+      <p style={styles.label}>支付成功！</p>
+      <div style={styles.qrcode} className="text-center">
+        <div style={{width:'100%', height: '100%', background: '#eee'}}></div>
+      </div>
+      <p style={styles.amount}>¥{checkout.price.toFixed(2)}</p>
+      <p style={styles.description}>支付编号: {checkout.remark}</p>
+    </div>
+  </div>
+
+  }
 
   if (expiry <= 0 || !user) {
     return <div>
@@ -111,7 +151,7 @@ export default function Page({ checkout, base64, user, }: { checkout: IConfig, u
       <img src={base64} style={styles.qrcode} alt="qrcode" width={100} />
       <p style={styles.amount}>¥{checkout.price.toFixed(2)}</p>
       <p style={styles.description}>流量会在支付成功后0.5个工作日内更新</p>
-      <p style={styles.description}>页面{Math.floor(expiry/1000)}秒后过期</p>
+      <p style={styles.description}>页面{Math.floor(expiry / 1000)}秒后过期</p>
     </div>
   </div>
 
@@ -137,15 +177,17 @@ export async function getServerSideProps(ctx: NextPageContext) {
 
   const base64 = `data:image/jpg;base64,${Buffer.from(buff).toString('base64')}`;
 
+  // connect with remark
+  await updateRemark(uid, checkout.remark);
 
   // notify
   await sendMsg({
     user, extra, remark: checkout.remark, price: checkout.price, uid
   })
 
-  // expire the uid
-  await expireUID(uid);
+  // // expire the uid
+  // await expireUID(uid);
 
   // Pass data to the page via props
-  return { props: { checkout, user, extra, base64 } };
+  return { props: { checkout, user, extra, base64, uid } };
 }
