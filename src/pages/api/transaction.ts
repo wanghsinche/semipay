@@ -49,5 +49,5 @@ export default async function handler(
         remark
     });
     
-    return res.status(200).json({ msg: `${record.insertId}` });
+    return res.status(200).json({ msg: `${uid}` });
 }

@@ -61,18 +61,18 @@ transId: ${pay.transId}
 
     const token = createHmac('sha256', secret).update(text).digest('base64');
 
-
-    await fetch(`${gateway}/api/transaction?token=${encodeURIComponent(token)}`, {
+    
+    const resText = await fetch(`${gateway}/api/transaction?token=${encodeURIComponent(token)}`, {
         method: 'POST',
         body: JSON.stringify(info)
     }).then(res => {
         if (res.status !== 200) {
-            console.log(res.url);
-            throw res;
+            console.log(res.url, res.status, info);
         }
-        return res;
-    }).then(res => res.json())
+        return res.text();
+    })
 
+    console.log(resText);
     console.log('saved record');
 
 }
