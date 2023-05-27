@@ -173,7 +173,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
 
   const info = await retrieveInfo(uid);
 
-  if (!info) return { props: {} };
+  if (!info || info.remark) return { props: {} };
 
   const { price, user, extra } = info;
   // Fetch data from external API
