@@ -1,5 +1,4 @@
 import { MessageInterface } from "wechaty/impls";
-import { IPayment } from "./payment";
 import fetch from 'node-fetch';
 import {config} from 'dotenv';
 config();
@@ -27,7 +26,7 @@ function escapeString(str:string) {
     return escapeString(e)
   }
   
-export async function notifyTelegram(payload: MessageInterface | IPayment | string, parse_mode='Markdown',escape = escapeString ) {
+export async function notifyTelegram(payload: MessageInterface | string, parse_mode='Markdown',escape = escapeString ) {
     const myself = process.env.MYSELF;
     const bot = process.env.BOT;
 

@@ -1,9 +1,10 @@
 import { IConfig, duration, generateCheckout } from "@/services/id-generator";
 import { sendMsg } from "@/services/notifier";
-import { expireUID, retrieveInfo, updateRemark } from "@/services/otc";
+import { retrieveInfo, updateRemark } from "@/services/otc";
 import { NextPageContext } from "next";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import QRCode from 'qrcode';
 
 const styles: Record<string, React.CSSProperties> = {
   container: {
@@ -121,8 +122,8 @@ export default function Page({ checkout, base64, user, uid }: { checkout: IConfi
           </div>
         </div>
         <p style={styles.amount}>¥{checkout.price.toFixed(2)}</p>
-        <p style={styles.description}>流量会在支付成功后0.5个工作日内更新</p>
-        <p style={styles.description}>支付编号: {checkout.remark}</p>
+        <p style={styles.description}>系统会在支付成功后0.5个工作日内更新</p>
+        <p style={styles.description}>支付编号: {uid}</p>
       </div>
     </div>
 
@@ -154,10 +155,10 @@ export default function Page({ checkout, base64, user, uid }: { checkout: IConfi
     <div style={styles.background} />
     <div style={styles.content}>
       <p style={styles.label}>请使用微信扫码支付</p>
-      <p style={styles.username}>务必在备注写上你的用户名：{user}</p>
+      <p style={styles.username}>建议在备注写上你的用户名：{user}</p>
       <img src={base64} style={styles.qrcode} alt="qrcode" width={100} />
       <p style={styles.amount}>¥{checkout.price.toFixed(2)}</p>
-      <p style={styles.description}>流量会在支付成功后0.5个工作日内更新</p>
+      <p style={styles.description}>系统会在支付成功后0.5个工作日内更新</p>
       <p style={styles.description}>页面{Math.floor(expiry / 1000)}秒后过期</p>
     </div>
   </div>
@@ -179,7 +180,13 @@ export async function getServerSideProps(ctx: NextPageContext) {
   const checkout = await generateCheckout(Number(price));
   if (!checkout) return { props: { checkout, user, extra } };
 
-  const buff = await fetch(checkout.url).then((response) => response.arrayBuffer()); // Get the image as a Blob
+  let buff:ArrayBuffer;
+  
+  if (checkout.url.startsWith('http')) {
+    buff = await fetch(checkout.url).then((response) => response.arrayBuffer()); // Get the image as a Blob
+  } else {
+    buff = await QRCode.toBuffer(checkout.url);
+  }
 
 
   const base64 = `data:image/jpg;base64,${Buffer.from(buff).toString('base64')}`;

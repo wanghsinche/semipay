@@ -1,15 +1,9 @@
 import { useState, useEffect } from "react";
 import { Inter } from 'next/font/google'
+import Demo from "../main/demo";
 const inter = Inter({ subsets: ['latin'] })
 
 export default function SemiPay (){
-    const [checkout, setCheckout] = useState('');
-
-    useEffect(() => {
-      fetch('/api/hello').then(res => res.json()).then(info => {
-        setCheckout(info.url);
-      });
-    }, []);
   
     return (
       <main
@@ -31,14 +25,7 @@ export default function SemiPay (){
             <p className="mb-8"><i className="ri-github-line"></i> github fork
                 <a className="mx-8 text-red-800" href="https://github.com/wanghsinche/semipay" data-size="large" data-show-count="true" aria-label="Star wanghsinche/semipay on GitHub">https://github.com/wanghsinche/semipay</a>
             </p>
-
-            <h2 className="text-2xl font-bold my-4">Demo</h2>
-  
-            <p className="mb-8 bg-gray-200">
-              <span className='text-xl'>Testing checkout link: </span>
-              <a className='text-red-800 break-all' target='blank' href={checkout}>{checkout}</a>
-  
-            </p>
+            <Demo />
   
             <h2 className="text-2xl font-bold my-4">Usage</h2>
   

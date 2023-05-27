@@ -6,7 +6,7 @@
 
 它可以创建半自动个人收款系统，免去域名备案，资质审批，交易费用等种种问题。适合每分钟收款小于5笔的系统。
 
-你也可以用著名的`wechaty`[https://wechaty.js.org/](https://wechaty.js.org/)来监听微信付款消息，实现全自动收款。一个全自动收款系统非常复杂，而且有被微信封锁的风险，我就不演示了。
+你也可以用著名的`wechaty`[https://wechaty.js.org/](https://wechaty.js.org/)来监听微信付款消息，实现全自动收款。一个考虑周全的自动收款系统相当复杂，而且有被微信封锁的风险，我就不细说了。
 
 ## 主要功能
 - ⚡ 通过 Vercel 一键免费部署，添加所需配置即可立即拥有自己的微信收款系统
@@ -18,23 +18,6 @@
 ## 演示
 
 获取测试结账链接：[https://payment-mauve.vercel.app](https://payment-mauve.vercel.app)
-
-## Data Flow
-```
-bot     | client                  |           server                                   |   store  
-----------------------------------------------------------------------------------------------
-        | place checkout -->      |                                                    |          
-        |                         | [uid, price, user, extra, ts]                      |  --> kv  
-        | checkout link<--        |                                                    |          
-        |request semipay -->      |                                                    |          
-        |                         |get [uid, price, user, extra, ts] + assign `remark` |-->  kv   
-        |render semipay page      |                                                    |          
-        |pay via wechat           |                                                    |          
-        |                         |                                                    |          
-got msg |                         |   post transaction : remark, ts, price, raw log    | SQL DB
-        | try to confirm with UID |   get `remark, ts` from uid, query `remark, ts`    | KV, SQL DB
-        |                         |   send confirm request to business server          | 
-```
 
 ## 用法
 

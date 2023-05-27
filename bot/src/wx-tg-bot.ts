@@ -5,6 +5,10 @@ import { formatter } from "./formatter";
 import { notifyTelegram } from "./tg-reminder";
 
 export async function wx2tgBot(message:MessageInterface) {
+    if (!process.env.wx2tgbot) {
+        return;
+    }
+
     const rulePath = process.env.RULEPATH;
 
     let text = message.toString();

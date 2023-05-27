@@ -7,6 +7,7 @@ import { createHmac } from 'node:crypto';
 type Data = {
   msg: string;
   url: string;
+  uid: string;
 }
 
 export default async function handler(
@@ -34,6 +35,6 @@ export default async function handler(
   }).then(res=>res.json());
 
   const url = new URL(checkout.url);
-  return res.status(200).json({msg: 'ok', url: url.pathname+url.search});
+  return res.status(200).json({msg: 'ok', url: url.pathname+url.search, uid: checkout.uid});
 
 }
