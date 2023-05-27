@@ -18,12 +18,19 @@ interface PaymentSettings {
 export default function Page() {
     const [config, setConfig] = useState<PaymentSettings>({
         qrcode: [],
-        telegram: '', hostname: '', confirmWebhook: '', secret: ''
+        telegram: 'https://api.telegram.org/botxxxx:xxxx/sendMessage?chat_id=xxx&', hostname: 'https://pay.com', confirmWebhook: 'https://business.com/api/confrim?', secret: 'mykey'
     });
 
     const [qrcode, setQrcode] = useState('');
     const [remark, setRemark] = useState('');
     const [price, setPrice] = useState(0);
+
+    function setConfigField(key: keyof PaymentSettings, v: string) {
+        setConfig({
+            ...config,
+            [key]: v
+        })
+    }
 
     function addToConfig() {
         const newItem: QRCodeItem = {
@@ -80,44 +87,135 @@ export default function Page() {
         reader.readAsDataURL(file);
 
     }
-    return <div className="mx-10 my-5">
+    return <div className="my-10 mx-20">
+        <h1 className="text-center mx-auto text-lg">
+            SemiPay Config 自助配置工具
+        </h1>
+        <div >
+            <label className="block text-gray-700 font-bold mb-2" >
+                 vercel edge config 内容
+            </label>
+            <div className=" overflow-y-scroll" style={{ height: 200 }}>
+                <pre className="break-all text-white bg-gray-800 p-10">
+                    {JSON.stringify(config, null, 4)}
+                </pre>
+
+            </div >
+        </div>
+
+        <div className=" my-5 flex justify-between">
+
+            <div className="w-1/3 border border-gray-500 p-10 rounded">
+                <div className="mb-4">
+                    务必设置三张以上不同备注的相同金额收款码
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2" htmlFor="price">
+                        金额
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="price"
+                        type="text"
+                        placeholder="price"
+                        value={price} onChange={e => setPrice(Number(e.target.value))}
+                    />
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2" htmlFor="remark">
+                        收款码备注
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="remark"
+                        type="text"
+                        placeholder="remark"
+                        value={remark} onChange={e => setRemark(e.target.value)}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2" htmlFor="qrcode">
+                        收款码
+                    </label>
+
+                    <input
+                        className=" mb-2"
+                        type="file"
+                        placeholder="qrcode"
+                        onChange={getLink}
+                    />
+                </div>
+
+                <button onClick={() => addToConfig()} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                    Add To Config
+                </button>
+                <p className="block text-gray-700 font-bold my-2 break-all" >
+                    {qrcode}
+                </p>
 
 
-        <p>
-            <input value={price} onChange={e => setPrice(Number(e.target.value))}></input>
-            <input value={remark} onChange={e => setRemark(e.target.value)}></input>
-            <input id="remark" type="file" onChange={getLink}></input>
-            {qrcode}
-        </p>
-        <p>
-            <button onClick={()=>addToConfig()}>add To Config</button>
-        </p>
-        <p>
-            <label htmlFor="telegram">
-                telegram
-                <input id="telegram"></input>
-            </label>
-        </p>
-        <p>
-            <label htmlFor="hostname">
-                hostname
-                <input id="hostname"></input>
-            </label>
-        </p>
-        <p>
-            <label htmlFor="secret">
-                secret
-                <input id="secret"></input>
-            </label>
-        </p>
-        <p>
-            <label htmlFor="confirmWebhook">
-                <input id="confirmWebhook"></input>
-            </label>
-        </p>
 
-        <pre>
-            {JSON.stringify(config, null, 4)}
-        </pre>
+            </div>
+
+            <div className="w-1/2 border border-gray-500 p-10 rounded">
+                <div className="mb-4">
+                    其他字段
+                </div>
+
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2" htmlFor="telegram">
+                        telegram
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="telegram"
+                        type="text"
+                        placeholder="telegram"
+                        value={config.telegram} onChange={e => setConfigField('telegram', e.target.value)}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2" htmlFor="hostname">
+                        hostname
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="hostname"
+                        type="text"
+                        placeholder="hostname"
+                        value={config.hostname} onChange={e => setConfigField('hostname', e.target.value)}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2" htmlFor="confirmWebhook">
+                        confirmWebhook
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="confirmWebhook"
+                        type="text"
+                        placeholder="confirmWebhook"
+                        value={config.confirmWebhook} onChange={e => setConfigField('confirmWebhook', e.target.value)}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label className="block text-gray-700 font-bold mb-2" htmlFor="secret">
+                        secret
+                    </label>
+                    <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        id="secret"
+                        type="text"
+                        placeholder="secret"
+                        value={config.secret} onChange={e => setConfigField('secret', e.target.value)}
+                    />
+                </div>
+
+            </div>
+
+
+        </div>
+
     </div>
 }

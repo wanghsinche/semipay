@@ -156,7 +156,7 @@ export default function Page({ checkout, base64, user, uid }: { checkout: IConfi
     <div style={styles.content}>
       <p style={styles.label}>请使用微信扫码支付</p>
       <p style={styles.username}>建议在备注写上你的用户名：{user}</p>
-      <img src={base64} style={styles.qrcode} alt="qrcode" width={100} />
+      <Image src={base64 as string} style={styles.qrcode} alt="qrcode" width={100} height={100}/>
       <p style={styles.amount}>¥{checkout.price.toFixed(2)}</p>
       <p style={styles.description}>系统会在支付成功后0.5个工作日内更新</p>
       <p style={styles.description}>页面{Math.floor(expiry / 1000)}秒后过期</p>

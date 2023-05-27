@@ -29,7 +29,7 @@ export default async function handler(
 
     const codeShouldBe = await getToken({ price, timestamp, remark, log, transId });
 
-    // if (token !== codeShouldBe) return res.status(400).json({ msg: 'wrong token' });
+    if (token !== codeShouldBe) return res.status(400).json({ msg: 'wrong token' });
 
     const uid = await kv.get(remark) as string;
 
