@@ -29,7 +29,7 @@ export default async function handler(
     method: 'post',
     body: JSON.stringify({...info, token})
   }).then(res=>{
-    console.log(res.status)
+    console.log('failed',res.status)
     return res;
   }).then(res=>res.json());
 

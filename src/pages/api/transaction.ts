@@ -46,7 +46,8 @@ export default async function handler(
         user:info.user,
         extra: info.extra,
         uid,
-        remark
+        remark,
+        timestamp
     });
     
     return res.status(200).json({ msg: `${uid}` });

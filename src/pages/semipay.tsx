@@ -2,6 +2,7 @@ import { IConfig, duration, generateCheckout } from "@/services/id-generator";
 import { sendMsg } from "@/services/notifier";
 import { expireUID, retrieveInfo, updateRemark } from "@/services/otc";
 import { NextPageContext } from "next";
+import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
 const styles: Record<string, React.CSSProperties> = {
@@ -103,23 +104,27 @@ export default function Page({ checkout, base64, user, uid }: { checkout: IConfi
       setExpiry(expiry - 1000);
       if (expiry % 2000 === 0) {
         checkPaid();
-      } 
+      }
     }, 1000);
   }, [expiry])
 
 
   if (paid) {
     return <div style={styles.container}>
-    <div style={styles.background} />
-    <div style={styles.content}>
-      <p style={styles.label}>支付成功！</p>
-      <div style={styles.qrcode} className="text-center">
-        <div style={{width:'100%', height: '100%', background: '#eee'}}></div>
+      <div style={styles.background} />
+      <div style={styles.content}>
+        <p style={styles.label}>支付成功！</p>
+        <p style={styles.username}>用户名：{user}</p>
+        <div style={styles.qrcode} className="text-center">
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+            <Image src="success-filled-svgrepo-com.svg" alt="icon" height={100} width={100} />
+          </div>
+        </div>
+        <p style={styles.amount}>¥{checkout.price.toFixed(2)}</p>
+        <p style={styles.description}>流量会在支付成功后0.5个工作日内更新</p>
+        <p style={styles.description}>支付编号: {checkout.remark}</p>
       </div>
-      <p style={styles.amount}>¥{checkout.price.toFixed(2)}</p>
-      <p style={styles.description}>支付编号: {checkout.remark}</p>
     </div>
-  </div>
 
   }
 
@@ -134,9 +139,11 @@ export default function Page({ checkout, base64, user, uid }: { checkout: IConfi
     return <div style={styles.container}>
       <div style={styles.background} />
       <div style={styles.content}>
-        <p style={styles.label}>请使用微信扫码支付</p>
+        <p style={styles.label}>系统繁忙，稍后再试</p>
         <div style={styles.qrcode} className="text-center">
-          系统繁忙，稍后再试
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
+            <Image src="error-scan-svgrepo-com.svg" alt="error" height={100} width={100} />
+          </div>
         </div>
       </div>
     </div>

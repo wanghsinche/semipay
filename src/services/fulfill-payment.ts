@@ -11,6 +11,7 @@ interface IInfo {
     extra: string;
     uid: string;
     remark: string;
+    timestamp: number;
 }
 
 export async function fulfillPayment(info: IInfo) {
@@ -32,9 +33,8 @@ export async function fulfillPayment(info: IInfo) {
       method: 'post',
       body: JSON.stringify(info)
     }).then(r => { if (r.status !== 200) throw r.statusText; return r });
-  
     await setFullfilled(info.uid);
   
-    await sendReceipt(info)
+    // await sendReceipt(info)
 
   }
