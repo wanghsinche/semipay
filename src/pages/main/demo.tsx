@@ -60,7 +60,7 @@ export default function Demo() {
         {paid && <p className="my-8 bg-gray-200">
           <a className="text-red-800" href="/tools" target='blank'>点击打开“自助配置工具”</a>
         </p>}
-        {paid && <span >付费咨询: pay@findata-be.uk</span>}
+        {paid && <span >咨询: pay@findata-be.uk</span>}
       </p>
     </section>
   );
