@@ -57,10 +57,10 @@ export default function Demo() {
       </p>
       <p className="mb-8 bg-gray-200 text-center text-xl text-red-800">
         {!paid && <span  > <button onClick={() => { loading || checkPayment(uid); }}>{loading ? 'loading...' : '隐藏内容，支付后点击可见'}</button></span>}
-        {paid && <span >咨询邮箱: pay@findata-be.uk</span>}
-        {paid && <p className="mb-8 bg-gray-200">
-          <a className="text-red-800" href="/tools" target='blank'>自助配置工具</a>
+        {paid && <p className="my-8 bg-gray-200">
+          <a className="text-red-800" href="/tools" target='blank'>点击打开“自助配置工具”</a>
         </p>}
+        {paid && <span >付费咨询: pay@findata-be.uk</span>}
       </p>
     </section>
   );
