@@ -1,4 +1,4 @@
-# SEMIPAY - 一个开源的微信支付解决方案
+# SEMIPAY - 一个开源的个人收款解决方案
 
 [ENGLISH VERSION](/README.en.md)
 

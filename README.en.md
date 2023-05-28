@@ -1,4 +1,4 @@
-# SEMIPAY - An Open Source Wechat Payment Solution
+# SEMIPAY - An Open Source personal Payment Solution
 
 Welcome to SEMIPAY, a personal payment solution that can be easily deployed privately with a single click on Vercel.
 
