@@ -1,5 +1,5 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { getToken } from '@/services/get-token';
+import { donateUser } from '@/services/fulfill-payment';
 import { get } from '@vercel/edge-config';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { createHmac } from 'node:crypto';
@@ -16,7 +16,7 @@ export default async function handler(
 ) {
   const info:Record<string, string|number> = {
     price: 5,
-    user: 'donate@user.com',
+    user: donateUser,
     extra: 'donate',
     timestamp: Date.now()
   }

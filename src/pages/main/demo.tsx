@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 
@@ -44,24 +45,45 @@ export default function Demo() {
     });
   }, []);
 
+  return <div id="demo" className="mt-10 py-10 bg-slate-100">
+    <div className="flex">
+      <div className="bg-white rounded-lg shadow-md overflow-hidden w-1/3 ml-20 my-10">
+        <div className="p-6">
+          <div className="font-bold text-lg mb-2">付费体验DEMO</div>
+          {!paid && <p className="text-gray-700 text-base">隐藏内容，付费后可见</p>}
+          {paid && <p className="text-gray-700 text-base">付费咨询: pay@findata-be.uk</p>}
+          {paid && <p className="text-sky-500 dark:text-sky-400"><Link href='/tools'>使用“自助配置工具”</Link></p>}
+        </div>
+        <div className="px-6 py-4 flex justify-between">
+          <a target='_blank' href={checkout} className="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400">
+            {paid? '再次购买':'购买'}
+          </a>
+          <button onClick={() => { loading || checkPayment(uid); }} className="relative  border cursor-pointer flex items-center justify-center whitespace-nowrap px-6 rounded-lg">
+            {loading ? 'loading...' : paid? '付费成功' : '已经购买，查看内容'}
+          </button>
+        </div>
+      </div>
 
-  return (
-    <section className="py-8">
-      <h2 className="text-2xl font-bold mb-4">Demo</h2>
-      <p className="mb-8 bg-gray-200">
-        <span className='text-xl'> 甚至你可以搭配著名的wechaty来实现自己的全自动收款系统，点击下方链接体验DEMO</span>
-      </p>
-      <p className="mb-8 bg-gray-200">
-        <span className='text-xl'>支付链接: {" "}</span>
-        <a className='text-red-800 break-all' target='blank' href={checkout}>{checkout}</a>
-      </p>
-      <p className="mb-8 bg-gray-200 text-center text-xl text-red-800">
-        {!paid && <span  > <button onClick={() => { loading || checkPayment(uid); }}>{loading ? 'loading...' : '隐藏内容，支付后点击可见'}</button></span>}
-        {paid && <p className="my-8 bg-gray-200">
-          <a className="text-red-800" href="/tools" target='blank'>点击打开“自助配置工具”</a>
-        </p>}
-        {paid && <span >咨询: pay@findata-be.uk</span>}
-      </p>
-    </section>
-  );
+      <p className="mt-4 text-base leading-7 text-slate-700 my-10 mx-10 p-10"> 搭配消息监听, 实现自动收款。点击左侧购买按钮体验DEMO。</p>
+
+    </div>
+    <div className="flex flex-row-reverse">
+
+      <div className="bg-white rounded-lg shadow-md overflow-hidden w-1/3 mr-20 my-10">
+        <div className="p-6">
+          <div className="font-bold text-lg mb-2">部署到Vercel</div>
+          <p className="text-gray-700 text-base">前往Github了解详情</p>
+        </div>
+        <div className="px-6 py-4 flex justify-between">
+          <a target="_blank" href="https://github.com/wanghsinche/semipay" className="bg-slate-900 hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400">
+            Github
+          </a>
+        </div>
+      </div>
+      <p className="mt-4 text-base leading-7 text-slate-700 my-10 mx-10 p-10"> 开源方案, 私有化部署, 轻松安装到Vercel, 0成本运行。</p>
+    </div>
+  </div>
+    ;
+
+
 }

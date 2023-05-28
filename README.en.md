@@ -1,14 +1,14 @@
 # SEMIPAY - An Open Source Wechat Payment Solution
 
-Welcome to SEMIPAY, a semi-automatic WeChat payment solution that can be easily deployed privately with a single click on Vercel.
+Welcome to SEMIPAY, a personal payment solution that can be easily deployed privately with a single click on Vercel.
 
-It helps create a personal semi-automatic payment collection system and eliminates the need for record filing and transaction fees associated with online payments
+It helps create a personal payment system and eliminates the need for record filing and transaction fees associated with online payments
 
 You can also use the popular `wechaty` [https://wechaty.js.org/](https://wechaty.js.org/) to monitor WeChat payment messages and achieve fully automatic collection. A fully automatic collection system is very complicated and there is a risk of being blocked by WeChat, so I won't demonstrate it.
 
 ## Main Features
 - ⚡ One-click free deployment through Vercel. Add the required configuration and you can immediately have your own WeChat payment system.
-- 💬 Supports multiple notification methods such as Telegram bot (recommended), Email (you need to replace it with your own SMTP email in the code), webhook, etc.
+- 💬 Using Telegram bot for notification
 - 🎨 Easy to operate, update the configuration in Vercel edge config to take effect immediately.
 - 🌈 Safe and open source, no need to worry about funding issues.
 ## Demo
@@ -22,14 +22,22 @@ Get the test checkout link: [https://payment-mauve.vercel.app](https://payment-m
 - Prepare multiple WeChat payment QR codes with different remarks and fixed amounts, and upload them to the network (such as GitHub or object storage servers).
 - After obtaining the URL that can be accessed directly, fill in the `qrcode` field.
 - Purchase a domain name that can be used in China (hostname), or you can use the domain name provided by Vercel directly.
-- Set up the email or Telegram bot (recommended) link, key, and payment site hostname.
+- Set up Telegram bot link, key, and payment site hostname.
 - Set the address of `confirmWebhook` for the callback after the order is confirmed. The sample request is shown below:
 
 ```bash
 curl -X POST <confirmWebhook>&token=<token> \n
 -H "Content-Type: application/json" \n
 -d '{"price":<price>,"user":"<user>","extra":"<extra>","uid":"<uid>","remark":"<remark>","timestamp":<timestamp>}'
+
+
+# sample
+
+curl -X POST -H "Content-Type: application/json" -d '{"price": 10, "user": "john@example.com", "extra": "Extra information", "uid": "1234", "remark": "Payment for product X", "timestamp": 1622213957}' https://your-webhook-url.com?token=your-token
+
 ```
+- Make sure your webhook return 200, otherwise the payment can not be comfirmed
+
 
 - generate token 
 ```js 

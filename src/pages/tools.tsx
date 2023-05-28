@@ -11,14 +11,14 @@ interface PaymentSettings {
     qrcode: QRCodeItem[];
     telegram: string;
     hostname: string;
-    confirmWebhook: string;
+    webhook: string;
     secret: string;
 }
 
 export default function Page() {
     const [config, setConfig] = useState<PaymentSettings>({
         qrcode: [],
-        telegram: 'https://api.telegram.org/botxxxx:xxxx/sendMessage?chat_id=xxx&', hostname: 'https://pay.com', confirmWebhook: 'https://business.com/api/confrim?', secret: 'mykey'
+        telegram: 'https://api.telegram.org/botxxxx:xxxx/sendMessage?chat_id=xxx&', hostname: 'https://pay.com', webhook: 'https://business.com/api/confrim?', secret: 'mykey'
     });
 
     const [qrcode, setQrcode] = useState('');
@@ -188,15 +188,15 @@ export default function Page() {
                     />
                 </div>
                 <div className="mb-4">
-                    <label className="block text-gray-700 font-bold mb-2" htmlFor="confirmWebhook">
-                        confirmWebhook
+                    <label className="block text-gray-700 font-bold mb-2" htmlFor="webhook">
+                        webhook
                     </label>
                     <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="confirmWebhook"
+                        id="webhook"
                         type="text"
-                        placeholder="confirmWebhook"
-                        value={config.confirmWebhook} onChange={e => setConfigField('confirmWebhook', e.target.value)}
+                        placeholder="webhook"
+                        value={config.webhook} onChange={e => setConfigField('webhook', e.target.value)}
                     />
                 </div>
                 <div className="mb-4">

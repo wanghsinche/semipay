@@ -28,10 +28,7 @@ export default function Usage() {
   ],
   "webhook": "https://ok/api/wepaynotify?",
   "telegram": "https://api.telegram.org/botxxxx:xxxx/sendMessage?chat_id=xxx&",
-  "email": "",
-  "notifier": "",
   "hostname": "https://pay",
-  "confirmWebhook": "https://ok/api/wepaynotify?",
   "secret": "123"
 }`}
             </pre>

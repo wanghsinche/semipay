@@ -2,7 +2,7 @@
 
 [ENGLISH VERSION](/README.en.md)
 
-欢迎使用 SEMIPAY，一个半自动的微信支付解决方案，只需在 Vercel 上点击一次即可轻松部署私有的支付系统。
+欢迎使用 SEMIPAY，个人收款解决方案，只需在 Vercel 上简单配置即可轻松部署私有的支付系统。
 
 它可以创建半自动个人收款系统，免去域名备案，资质审批，交易费用等种种问题。适合每分钟收款小于5笔的系统。
 
@@ -10,7 +10,7 @@
 
 ## 主要功能
 - ⚡ 通过 Vercel 一键免费部署，添加所需配置即可立即拥有自己的微信收款系统
-- 💬 支持tg机器人（推荐），Email(需要在代码里换成你自己的stmp邮箱)，webhook等多种通知方式
+- 💬 支持tg机器人通知
 - 🎨 操作简单，在vercel edge config 更新配置即可立即生效
 - 🌈 安全开源，无需担心资金问题
 
@@ -30,16 +30,22 @@
 
 - 购买国内可用的域名（hostname），你也可以直接用vercel送的域名
 
-- 设置好email或者tg机器人（推荐）链接，密钥 和 支付站点的hostname
+- 设置好tg机器人链接，密钥 和 支付站点的hostname
 
-- 设置好`confirmWebhook` 的地址，用于确认订单后的回调，请求样本如下所示：
+- 设置好`webhook` 的地址，用于确认订单后的回调，请求样本如下所示：
 
 ```bash
-curl -X POST <confirmWebhook>&token=<token> \n
+curl -X POST <webhook>&token=<token> \n
 -H "Content-Type: application/json" \n
 -d '{"price":<price>,"user":"<user>","extra":"<extra>","uid":"<uid>","remark":"<remark>","timestamp":<timestamp>}'
 
+# 比如
+
+curl -X POST -H "Content-Type: application/json" -d '{"price": 10, "user": "john@example.com", "extra": "Extra information", "uid": "1234", "remark": "Payment for product X", "timestamp": 1622213957}' https://your-webhook-url.com?token=your-token
+
 ```
+- 请务必保证webhook可用，否则订单不会被确认
+
 - token生成:
 ```js
 // info 即需要签名的payload
@@ -50,8 +56,6 @@ const text = Object.keys(info).sort().map(k=> info[k]).join(',');
 const token = createHmac('sha256', secret).update(text).digest('base64');
 
 ```
-
-- `webhook` 字段保持与`confirmWebhook`一致
 
 
 总之，代码都在这了，不用我多加解释。

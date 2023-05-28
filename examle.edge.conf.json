@@ -21,6 +21,5 @@
   "email": "",
   "notifier": "",
   "hostname": "https://pay",
-  "confirmWebhook": "https://ok/api/wepaynotify?",
   "secret": "123"
 }
