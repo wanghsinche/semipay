@@ -87,10 +87,7 @@ https://vercel.com/dashboard/stores/edge-config
   ],
   "webhook": "https://ok/api/wepaynotify?",
   "telegram": "https://api.telegram.org/botxxxx:xxxx/sendMessage?chat_id=xxx&",
-  "email": "",
-  "notifier": "",
   "hostname": "https://pay",
-  "confirmWebhook": "https://ok/api/wepaynotify?",
   "secret": "123"
 }
 ```
@@ -141,7 +138,7 @@ console.log(checkout);
     click here to confirm the payment
  * 
  * /
-// 点击后即可确认订单，并调用confirmwebhook的地址发送确认消息
+// 点击后即可确认订单，并调用webhook的地址发送确认消息
 ```
 
 ## 部署

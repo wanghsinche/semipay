@@ -23,10 +23,10 @@ Get the test checkout link: [https://payment-mauve.vercel.app](https://payment-m
 - After obtaining the URL that can be accessed directly, fill in the `qrcode` field.
 - Purchase a domain name that can be used in China (hostname), or you can use the domain name provided by Vercel directly.
 - Set up Telegram bot link, key, and payment site hostname.
-- Set the address of `confirmWebhook` for the callback after the order is confirmed. The sample request is shown below:
+- Set the address of `webhook` for the callback after the order is confirmed. The sample request is shown below:
 
 ```bash
-curl -X POST <confirmWebhook>&token=<token> \n
+curl -X POST <webhook>&token=<token> \n
 -H "Content-Type: application/json" \n
 -d '{"price":<price>,"user":"<user>","extra":"<extra>","uid":"<uid>","remark":"<remark>","timestamp":<timestamp>}'
 
@@ -49,7 +49,6 @@ const text = Object.keys(info).sort().map(k=> info[k]).join(',');
 const token = createHmac('sha256', secret).update(text).digest('base64');
 ```
 
-- Keep the `webhook` field consistent with `confirmWebhook`.
 
 In short, the code is all here, no need for me to explain more.
 
@@ -80,10 +79,7 @@ https://vercel.com/dashboard/stores/edge-config
   ],
   "webhook": "https://ok/api/wepaynotify?",
   "telegram": "https://api.telegram.org/botxxxx:xxxx/sendMessage?chat_id=xxx&",
-  "email": "",
-  "notifier": "",
   "hostname": "https://pay",
-  "confirmWebhook": "https://ok/api/wepaynotify?",
   "secret": "123"
 }
 ```
@@ -132,7 +128,7 @@ console.log(checkout);
     click here to confirm the payment
  * 
  * /
-// Clicking will confirm the order and call the confirmWebhook address to send a confirmation message.
+// Clicking will confirm the order and call the webhook address to send a confirmation message.
 
 ```
 
