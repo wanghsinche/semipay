@@ -10,7 +10,7 @@ function getCookie(name: string) {
   }
 }
 
-export default function Demo() {
+export function Demo() {
   const [checkout, setCheckout] = useState();
   const [uid, setUid] = useState();
   const [paid, setPaid] = useState(false);

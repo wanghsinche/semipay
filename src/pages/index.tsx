@@ -1,6 +1,5 @@
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
-import SemiPay from './legacy'
+import SemiPay from '../components/legacy'
 
 const inter = Inter({ subsets: ['latin'] })
 
