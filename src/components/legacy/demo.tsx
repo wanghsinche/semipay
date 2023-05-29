@@ -46,8 +46,11 @@ export function Demo() {
   }, []);
 
   return <div id="demo" className="mt-10 py-10 bg-slate-100">
-    <div className="flex">
-      <div className="bg-white rounded-lg shadow-md overflow-hidden w-1/3 ml-20 my-10">
+    <div className="md:flex md:flex-row-reverse">
+
+      <p className="mt-4 text-base leading-7 text-slate-700 my-10 md:mr-20 p-10"> 搭配消息监听, 实现自动收款。点击购买按钮体验DEMO。</p>
+
+      <div className="bg-white rounded-lg shadow-md overflow-hidden w-full md:w-1/3 md:mr-20 my-10">
         <div className="p-6">
           <div className="font-bold text-lg mb-2">付费体验DEMO</div>
           {!paid && <p className="text-gray-700 text-base">隐藏内容，付费后可见</p>}
@@ -64,12 +67,12 @@ export function Demo() {
         </div>
       </div>
 
-      <p className="mt-4 text-base leading-7 text-slate-700 my-10 mx-10 p-10"> 搭配消息监听, 实现自动收款。点击左侧购买按钮体验DEMO。</p>
 
     </div>
-    <div className="flex flex-row-reverse">
+    <div className="md:flex ">
 
-      <div className="bg-white rounded-lg shadow-md overflow-hidden w-1/3 mr-20 my-10">
+      <p className="mt-4 text-base leading-7 text-slate-700 my-10 md:ml-20 p-10"> 开源方案, 私有化部署, 轻松安装到Vercel, 0成本运行。</p>
+      <div className="bg-white rounded-lg shadow-md overflow-hidden md:w-1/3 w-full md:ml-20 my-10">
         <div className="p-6">
           <div className="font-bold text-lg mb-2">部署到Vercel</div>
           <p className="text-gray-700 text-base">前往Github了解详情</p>
@@ -80,7 +83,6 @@ export function Demo() {
           </a>
         </div>
       </div>
-      <p className="mt-4 text-base leading-7 text-slate-700 my-10 mx-10 p-10"> 开源方案, 私有化部署, 轻松安装到Vercel, 0成本运行。</p>
     </div>
   </div>
     ;
